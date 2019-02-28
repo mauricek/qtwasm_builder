@@ -9,9 +9,7 @@ WORKDIR /development/qt5
 
 ### TODO: For WebAssembly we should not need a full init-repository. However, this way we
 #   can easily track changes.
-### TODO: remove --branch, required for build fix
-RUN ./init-repository --berlin --branch
-#RUN ./init-repository --berlin
+RUN ./init-repository --berlin
 
 RUN mkdir -p /development/qt5_build
 WORKDIR /development/qt5_build
