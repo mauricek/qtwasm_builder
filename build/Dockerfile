@@ -7,9 +7,7 @@ RUN git clone --branch=5.13 git://code.qt.io/qt/qt5.git
 
 WORKDIR /development/qt5
 
-### TODO: For WebAssembly we should not need a full init-repository. However, this way we
-#   can easily track changes.
-RUN ./init-repository --berlin
+RUN ./init-repository --module-subset=all,-qtwebengine,-qt3d
 
 RUN mkdir -p /development/qt5_build
 WORKDIR /development/qt5_build
