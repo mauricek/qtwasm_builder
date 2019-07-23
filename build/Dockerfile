@@ -19,8 +19,8 @@ RUN make install
 # Construct the build image from user perspective
 FROM trzeci/emscripten AS userbuild
 
-COPY --from=qtbuilder /usr/local/Qt-5.13.0/ /usr/local/Qt-5.13.0/
-ENV PATH="/usr/local/Qt-5.13.0/bin:${PATH}"
+COPY --from=qtbuilder /usr/local/Qt-5.13.1/ /usr/local/Qt-5.13.1/
+ENV PATH="/usr/local/Qt-5.13.1/bin:${PATH}"
 
 WORKDIR /project/build
 CMD qmake /project/source && make -j `grep -c '^processor' /proc/cpuinfo`
