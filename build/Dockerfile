@@ -1,9 +1,9 @@
 FROM trzeci/emscripten AS qtbuilder
-
+ARG targetBranch=5.13
 RUN mkdir -p /development
 WORKDIR /development
 
-RUN git clone --branch=5.13 git://code.qt.io/qt/qt5.git
+RUN git clone --branch=$targetBranch git://code.qt.io/qt/qt5.git
 
 WORKDIR /development/qt5
 
