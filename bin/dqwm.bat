@@ -14,10 +14,10 @@ IF NOT EXIST "%BUILDPATH%" (
 )
 
 echo Verify latest build env
-docker pull maukalinow/qtwasm_builder:latest
+docker pull maukalinow/qtwasm_object_files_builder:latest
 
 echo Invoke Docker build, Source: %SOURCEPATH%, Build: %BUILDPATH%
-docker run --rm -v %SOURCEPATH%:/project/source -v %BUILDPATH%:/project/build maukalinow/qtwasm_builder:latest
+docker run --rm -v %SOURCEPATH%:/project/source -v %BUILDPATH%:/project/build maukalinow/qtwasm_object_files_builder:latest
 
 GOTO End
 

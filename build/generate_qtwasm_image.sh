@@ -6,11 +6,11 @@ qtHead=$(git ls-remote git://code.qt.io/qt/qt5.git refs/heads/$targetBranch | cu
 
 echo "*** Checking Qt HEAD: $qtHead in branch $targetBranch"
 
-if docker pull $dockerRepo:${targetBranch}_$qtHead
-then
-    echo "*** Image for qt5.git branch $targetBranch $qtHead already generated. Nothing to do..."
-    exit 0
-fi
+#if docker pull $dockerRepo:${targetBranch}_$qtHead
+#then
+#    echo "*** Image for qt5.git branch $targetBranch $qtHead already generated. Nothing to do..."
+#    exit 0
+#fi
 
 
 if ! docker build --no-cache -t qtwasm_builder_$targetBranch --build-arg targetBranch=$targetBranch .
