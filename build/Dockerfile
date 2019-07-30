@@ -22,11 +22,21 @@ RUN /development/qt5/configure -xplatform wasm-emscripten -nomake examples -noma
 RUN make -j `grep -c '^processor' /proc/cpuinfo`
 RUN make install
 
+# Fill up the cache for pre-deployment
+# TODO: This does not work currently as the example directory for qtbase and qtdeclarative
+# are not fully compiling for webassembly
+#RUN mkdir -p /development/qt5_build/qtdeclarative/examples
+#WORKDIR /development/qt5_build/qtdeclarative/examples
+#RUN /usr/local/Qt/bin/qmake /development/qt5/qtdeclarative/examples && make
+
 # Construct the build image from user perspective
 FROM maukalinow/emscripten_object_files AS userbuild
 
 COPY --from=qtbuilder /usr/local/Qt /usr/local/Qt
+COPY --from=qtbuilder /root/.emscripten_cache /root/.emscripten_cache
+
 ENV PATH="/usr/local/Qt/bin:${PATH}"
 
 WORKDIR /project/build
-CMD qmake /project/source && make -j `grep -c '^processor' /proc/cpuinfo`
+# Using debug mode and no optimization speeds up most of the part
+CMD qmake CONFIG+=debug /project/source && make -j `grep -c '^processor' /proc/cpuinfo`

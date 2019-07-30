@@ -21,20 +21,23 @@ WORKDIR /build
 RUN git clone https://github.com/llvm/llvm-project.git
 RUN mkdir -p /build/llvm-project/build
 WORKDIR /build/llvm-project/build
+RUN git checkout -b 9 origin/release/9.x
 RUN cmake -GNinja ../llvm -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;lld" -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD=WebAssembly -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly -DCMAKE_INSTALL_PREFIX=/opt/llvm
 RUN service iceccd restart && ninja -j 30
 RUN ninja install
 
 # emscripten
+# TODO: Do a simple download, not a clone, to save space
 WORKDIR /opt
 RUN git clone https://github.com/kripken/emscripten.git
 WORKDIR /opt/emscripten
-RUN git checkout -b 1.38.40 1.38.40
+RUN git checkout -b 1.38.39 1.38.39
 
 # binaryen
 WORKDIR /build
 RUN git clone https://github.com/WebAssembly/binaryen.git
 WORKDIR /build/binaryen
+RUN git checkout -b targetbranch version_86 #Matches what emscripten builds semi-automatically
 RUN cmake -GNinja -DCMAKE_INSTALL_PREFIX=/opt/binaryen
 RUN service iceccd restart && ninja -j 30
 RUN ninja install
