@@ -1,9 +1,9 @@
 FROM trzeci/emscripten AS qtbuilder
-ARG targetBranch=5.13
+ARG targetBranch=5.13.1
 RUN mkdir -p /development
 WORKDIR /development
 
-RUN git clone --branch=$targetBranch git://code.qt.io/qt/qt5.git
+RUN git clone --branch=$targetBranch https://code.qt.io/cgit/qt/qt5.git
 
 WORKDIR /development/qt5
 
@@ -23,4 +23,7 @@ COPY --from=qtbuilder /usr/local/Qt /usr/local/Qt
 ENV PATH="/usr/local/Qt/bin:${PATH}"
 
 WORKDIR /project/build
-CMD qmake /project/source && make -j `grep -c '^processor' /proc/cpuinfo`
+
+COPY entrypoint.sh /
+ENTRYPOINT /entrypoint.sh
+

@@ -2,7 +2,7 @@
 #set -ex
 targetBranch=${1:-5.13}
 dockerRepo=maukalinow/qtwasm_builder
-qtHead=$(git ls-remote git://code.qt.io/qt/qt5.git refs/heads/$targetBranch | cut -f 1)
+qtHead=$(git ls-remote https://code.qt.io/cgit/qt/qt5.git refs/heads/$targetBranch | cut -f 1)
 
 echo "*** Checking Qt HEAD: $qtHead in branch $targetBranch"
 
