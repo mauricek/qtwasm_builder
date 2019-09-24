@@ -1,0 +1,44 @@
+trigger:
+- master
+
+jobs:
+- job: Build513
+  pool:
+    vmImage: 'ubuntu-latest'
+  timeoutInMinutes: 0
+  steps:
+  - script: |
+      cd build
+      echo Starting 5.13 build
+      bash --login -c "./generate_qtwasm_image.sh 5.13"
+    displayName: 'Run 5.13 qt wasm build'
+
+- job: Build514
+  pool:
+    vmImage: 'ubuntu-latest'
+  timeoutInMinutes: 0
+  steps:
+  - script: |
+      cd build
+      echo Starting 5.14 build
+      bash --login -c "./generate_qtwasm_image.sh 5.14"
+    displayName: 'Run 5.14 qt wasm build'
+
+- job: DockerLogin
+  dependsOn:
+    - Build513
+    - Build514
+  condition: succeeded('Build513')
+  steps:
+    - task: Docker@2
+      displayName: Login to Docker Hub
+      inputs:
+        command: login
+        containerRegistry: DockerHubPublic
+
+- job: PushToDocker
+  dependsOn:
+    - DockerLogin
+  steps:
+    - script: |
+        for t in $(docker images -f "reference=maukalinow/qtwasm_builder:5.1*" --format "{{.Tag}}"); do     docker push maukalinow/qtwasm_builder:${t}; done
