@@ -4,6 +4,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+timeoutInMinutes: 0
 steps:
 - script: |
     cd build
