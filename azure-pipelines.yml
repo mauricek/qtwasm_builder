@@ -1,15 +1,6 @@
 trigger:
 - master
 
-jobs:
-- job: DockerLogin
-  steps:
-    - task: Docker@2
-      displayName: Login to Docker Hub
-      inputs:
-        command: login
-        containerRegistry: DockerHubPublic
-
 - job: Build513
   pool:
     vmImage: 'ubuntu-latest'
@@ -17,6 +8,11 @@ jobs:
   dependsOn:
     - DockerLogin
   steps:
+  - task: Docker@2
+    displayName: Login to Docker Hub
+    inputs:
+      command: login
+      containerRegistry: DockerHubPublic
   - script: |
       cd build
       echo Starting 5.13 build
@@ -31,6 +27,11 @@ jobs:
   dependsOn:
     - DockerLogin
   steps:
+  - task: Docker@2
+    displayName: Login to Docker Hub
+    inputs:
+      command: login
+      containerRegistry: DockerHubPublic
   - script: |
       cd build
       echo Starting 5.14 build
