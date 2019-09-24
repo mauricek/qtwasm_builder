@@ -15,7 +15,7 @@ steps:
 
 - script: |
     cd build
-    echo Starting 5.13 build
-    bash --login -c "./generate_qtwasm_image.sh 5.13"
+    echo Starting 5.14 build
+    bash --login -c "./generate_qtwasm_image.sh 5.14"
     echo See https://aka.ms/yaml
-  displayName: 'Run 5.13 qt wasm build'
+  displayName: 'Run 5.14 qt wasm build'
