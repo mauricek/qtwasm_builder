@@ -1,0 +1,21 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    cd build
+    echo Starting 5.13 build
+    bash --login -c "./generate_qtwasm_image.sh 5.13"
+    echo See https://aka.ms/yaml
+  displayName: 'Run 5.13 qt wasm build'
