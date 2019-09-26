@@ -35,3 +35,10 @@ jobs:
       bash --login -c "./generate_qtwasm_image.sh 5.14"
       for t in $(docker images -f "reference=maukalinow/qtwasm_builder:5.1*" --format "{{.Tag}}"); do     docker push maukalinow/qtwasm_builder:${t}; done
     displayName: 'Run 5.14 qt wasm build'
+
+schedules:
+- cron: "0 3 * * *"
+  displayName: Nightly build
+  branches:
+    include:
+    - master
