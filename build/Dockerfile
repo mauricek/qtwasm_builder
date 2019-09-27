@@ -22,7 +22,10 @@ FROM trzeci/emscripten-ubuntu:latest AS userbuild
 COPY --from=qtbuilder /usr/local/Qt /usr/local/Qt
 ENV PATH="/usr/local/Qt/bin:${PATH}"
 
+WORKDIR /
+RUN git clone https://github.com/cpp-pm/polly.git
+
 WORKDIR /project/build
 
 COPY entrypoint.sh /
-ENTRYPOINT /entrypoint.sh
+CMD /entrypoint.sh
