@@ -15,8 +15,10 @@ jobs:
   - script: |
       cd build
       echo Starting 5.13 build
+      username=$(docker info | sed '/Username:/!d;s/.* //')
+      dockerRepo=${username}/qtwasm_builder
       bash --login -c "./generate_qtwasm_image.sh 5.13"
-      for t in $(docker images -f "reference=maukalinow/qtwasm_builder:5.1*" --format "{{.Tag}}"); do     docker push maukalinow/qtwasm_builder:${t}; done
+      for t in $(docker images -f "reference=${dockerRepo}:5.1*" --format "{{.Tag}}"); do     docker push ${dockerRepo}:${t}; done
     displayName: 'Run 5.13 qt wasm build'
 
 - job: Build514
@@ -32,8 +34,10 @@ jobs:
   - script: |
       cd build
       echo Starting 5.14 build
+      username=$(docker info | sed '/Username:/!d;s/.* //')
+      dockerRepo=${username}/qtwasm_builder
       bash --login -c "./generate_qtwasm_image.sh 5.14"
-      for t in $(docker images -f "reference=maukalinow/qtwasm_builder:5.1*" --format "{{.Tag}}"); do     docker push maukalinow/qtwasm_builder:${t}; done
+      for t in $(docker images -f "reference=${dockerRepo}:5.1*" --format "{{.Tag}}"); do     docker push ${dockerRepo}:${t}; done
     displayName: 'Run 5.14 qt wasm build'
 
 schedules:
