@@ -13,11 +13,11 @@ IF NOT EXIST "%BUILDPATH%" (
   echo "Assuming pwd": %BUILDPATH%
 )
 
-echo Verify latest build env
-docker pull maukalinow/qtwasm_builder:latest
+echo Verify latest Qt 5.13 build env
+docker pull maukalinow/qtwasm_builder:5.13_latest
 
 echo Invoke Docker build, Source: %SOURCEPATH%, Build: %BUILDPATH%
-docker run --rm -v %SOURCEPATH%:/project/source -v %BUILDPATH%:/project/build maukalinow/qtwasm_builder:latest
+docker run --rm -v %SOURCEPATH%:/project/source -v %BUILDPATH%:/project/build maukalinow/qtwasm_builder:5.13_latest
 
 GOTO End
 
