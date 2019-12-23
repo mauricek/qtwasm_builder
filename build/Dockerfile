@@ -16,10 +16,10 @@ WORKDIR /root/dev
 RUN git clone https://github.com/emscripten-core/emsdk.git
 WORKDIR /root/dev/emsdk
 
-RUN ./emsdk install latest
-RUN ./emsdk activate latest
+RUN ./emsdk install 1.39.4
+RUN ./emsdk activate 1.39.4
 
-ENV PATH="/root/dev/emsdk:/root/dev/emsdk/fastcomp/emscripten:/root/dev/emsdk/node/12.9.1_64bit/bin:${PATH}"
+ENV PATH="/root/dev/emsdk:/root/dev/emsdk/upstream/emscripten:/root/dev/emsdk/node/12.9.1_64bit/bin:${PATH}"
 
 FROM baseBuild AS qtbuilder
 ARG targetBranch=5.13
