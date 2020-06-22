@@ -3,6 +3,7 @@ FROM ubuntu:latest AS baseBuild
 ARG packages="build-essential git cmake \
 python3 \
 python \
+clang \
 ninja-build \
 build-essential \
 "
