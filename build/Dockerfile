@@ -19,7 +19,11 @@ WORKDIR /root/dev/emsdk
 RUN ./emsdk install 1.39.8
 RUN ./emsdk activate 1.39.8
 
-ENV PATH="/root/dev/emsdk:/root/dev/emsdk/upstream/emscripten:/root/dev/emsdk/node/12.9.1_64bit/bin:${PATH}"
+ENV PATH="/root/dev/emsdk:/root/dev/emsdk/upstream/emscripten:/root/dev/emsdk/node/12.18.1_64bit/bin:${PATH}"
+ENV EMSDK=/root/dev/emsdk
+ENV EM_CONFIG=/root/dev/emsdk/.emscripten
+ENV EM_CACHE=/root/dev/emsdk/upstream/emscripten/cache
+ENV EMSDK_NODE=/root/dev/emsdk/node/12.18.1_64bit/bin/node
 
 FROM baseBuild AS qtbuilder
 ARG targetBranch=5.15
